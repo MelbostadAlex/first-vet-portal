@@ -1,10 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import MAIN_LOGO from '../assets/main_logo.png'
 
 const Navbar = () => {
-    const [nav, setNav] = useState(false)
-    const handleClick = () => setNav(!nav)
-
     return (
         <div className='fixed w-full h-[80px] flex justify-between items-center px-4 bg-white to-[#2c5364] border-y-2'>
 
