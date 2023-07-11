@@ -5,6 +5,18 @@ import axios from 'axios';
 const ScheduleTable = () => {
     const [ schedules, setSchedules] = useState([]);
 
+    const dataOptions = [
+        {
+            name: 'John Doe',
+            key: 'John Doe',
+        },
+
+        {
+            name: 'Jane Doe',
+            key: 'Jane Doe',
+        }
+    ]
+
     const {
         currentPage,
         totalPages,
@@ -25,16 +37,13 @@ const ScheduleTable = () => {
 
     const filterOnEmployee = (value) => {
         if(!value || value === "All") {
-            return setSchedules(schedules);
+            getSchedules();
         }
 
-       let filteredSchedules = schedules.filter(item => item.employeeName === value);
+        let filteredSchedules = schedules.filter(item => item.employeeName === value);
+        console.log(filteredSchedules);
 
-       setSchedules(filteredSchedules)
-    }
-
-    const filterEmployeeNames = () => {
-        return [...new Set(schedules.map(item => item.employeeName))]
+        setSchedules(filteredSchedules)
     }
 
     useEffect(() => {
@@ -53,8 +62,8 @@ const ScheduleTable = () => {
                         <div className="relative">
                             <select onChange={({ target: { value } }) => filterOnEmployee(value)} className="appearance-none h-full rounded-l border block appearance-none w-full bg-white border-gray-400 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                                 <option key="all"> All </option>
-                                {filterEmployeeNames().map((employee, index) =>
-                                    <option key={index}> { employee }</option>
+                                {dataOptions.map((employee, index) =>
+                                    <option key={employee.key}> { employee.name }</option>
                                 )}
                             </select>
                             <div
@@ -142,15 +151,18 @@ const ScheduleTable = () => {
                         <div
                             className="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
                             <span className="text-xs xs:text-sm text-gray-900">
-                                Showing {currentPage} of {totalPages} of {schedules.length} Entries
+                                Showing {currentPage + 1 } of {totalPages} of {schedules.length} Entries
                             </span>
                             <div className="inline-flex mt-2 xs:mt-0">
-                                <button onClick={setPreviousPage} disabled={!previousEnabled} className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l">
-                                    Prev
-                                </button>
-                                <button onClick={setNextPage}  disabled={!nextEnabled} className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r">
-                                    Next
-                                </button>
+                                { previousEnabled
+                                    ? <button onClick={setPreviousPage} className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-l"> Prev </button>
+                                    : <button onClick={setPreviousPage} disabled className="text-sm bg-white-300 text-gray-800 font-semibold py-2 px-4 rounded-l"> Prev </button>
+                                }
+                                { nextEnabled
+                                    ? <button onClick={setNextPage} className="text-sm bg-gray-300 hover:bg-gray-400 text-gray-800 font-semibold py-2 px-4 rounded-r"> Next </button>
+                                    : <button disabled className="text-sm bg-white-300 text-gray-800 font-semibold py-2 px-4 rounded-r"> Next </button>
+                                }
+
                             </div>
                         </div>
                     </div>

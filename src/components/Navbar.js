@@ -16,7 +16,6 @@ const Navbar = () => {
             {/* Menu */}
 
             <ul className='flex p-2 text-black'>
-                <li className='py-2 px-4'> Schedule </li>
                 <li><button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'> Sign In </button></li>
                 <li> <button className='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'> Sign Up </button> </li>
             </ul>
